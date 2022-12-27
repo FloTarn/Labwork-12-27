@@ -1,0 +1,103 @@
+#define REMOTEXY_MODE__ESP32CORE_WIFI_POINT
+#include <WiFi.h>
+#include <RemoteXY.h>
+
+// RemoteXY connection settings
+#define REMOTEXY_WIFI_SSID "RemoteXY"
+#define REMOTEXY_WIFI_PASSWORD "12345678"
+#define REMOTEXY_SERVER_PORT 6522
+
+#pragma pack(push, 1)
+uint8_t RemoteXY_CONF[] = // 180 bytes
+{ 255,10,0,0,0,173,0,16,31,1,10,48,7,3,15,15,4,26,31,79,
+78,0,31,79,70,70,0,10,48,38,4,15,15,4,26,31,79,78,0,31,
+79,70,70,0,10,48,7,24,15,15,4,26,31,79,78,0,31,79,70,70,
+0,10,48,38,23,15,15,4,26,31,79,78,0,31,79,70,70,0,10,48,
+
+7,44,15,15,4,26,31,79,78,0,31,79,70,70,0,10,48,38,43,15,
+15,4,26,31,79,78,0,31,79,70,70,0,10,48,8,64,15,15,4,26,
+31,79,78,0,31,79,70,70,0,10,48,38,63,15,15,4,26,31,79,78,
+0,31,79,70,70,0,10,48,8,83,15,15,4,26,31,79,78,0,31,79,
+70,70,0,10,48,38,82,15,15,4,26,31,79,78,0,31,79,70,70,0 };
+
+// this structure defines all the variables and events of your control interface
+struct {
+// input variables
+uint8_t pushSwitch_1; // =1 if state is ON, else =0
+uint8_t pushSwitch_2; // =1 if state is ON, else =0
+uint8_t pushSwitch_3; // =1 if state is ON, else =0
+uint8_t pushSwitch_4; // =1 if state is ON, else =0
+uint8_t pushSwitch_5; // =1 if state is ON, else =0
+uint8_t pushSwitch_6; // =1 if state is ON, else =0
+uint8_t pushSwitch_7; // =1 if state is ON, else =0
+uint8_t pushSwitch_8; // =1 if state is ON, else =0
+uint8_t pushSwitch_9; // =1 if state is ON, else =0
+uint8_t pushSwitch_10; // =1 if state is ON, else =0
+// other variable
+uint8_t connect_flag; // =1 if wire connected, else =0
+} RemoteXY;
+#pragma pack(pop)
+
+#define PIN_PUSHSWITCH_1 22
+#define PIN_PUSHSWITCH_2 21
+#define PIN_PUSHSWITCH_3 19
+#define PIN_PUSHSWITCH_4 18
+#define PIN_PUSHSWITCH_5 5
+#define PIN_PUSHSWITCH_6 17
+#define PIN_PUSHSWITCH_7 16
+#define PIN_PUSHSWITCH_8 4
+#define PIN_PUSHSWITCH_9 2
+#define PIN_PUSHSWITCH_10 15
+
+char val;
+
+void setup() {
+  RemoteXY_Init();
+
+  pinMode(PIN_PUSHSWITCH_1, OUTPUT);
+  pinMode(PIN_PUSHSWITCH_2, OUTPUT);
+  pinMode(PIN_PUSHSWITCH_3, OUTPUT);
+  pinMode(PIN_PUSHSWITCH_4, OUTPUT);
+  pinMode(PIN_PUSHSWITCH_5, OUTPUT);
+  pinMode(PIN_PUSHSWITCH_6, OUTPUT);
+  pinMode(PIN_PUSHSWITCH_7, OUTPUT);
+  pinMode(PIN_PUSHSWITCH_8, OUTPUT);
+  pinMode(PIN_PUSHSWITCH_9, OUTPUT);
+  pinMode(PIN_PUSHSWITCH_10, OUTPUT);
+  
+  digitalWrite(PIN_PUSHSWITCH_1, LOW);
+  digitalWrite(PIN_PUSHSWITCH_2, LOW);
+  digitalWrite(PIN_PUSHSWITCH_3, LOW);
+  digitalWrite(PIN_PUSHSWITCH_4, LOW);
+  digitalWrite(PIN_PUSHSWITCH_5, LOW);
+  digitalWrite(PIN_PUSHSWITCH_6, LOW);
+  digitalWrite(PIN_PUSHSWITCH_7, LOW);
+  digitalWrite(PIN_PUSHSWITCH_8, LOW);
+  digitalWrite(PIN_PUSHSWITCH_9, LOW);
+  digitalWrite(PIN_PUSHSWITCH_10, LOW);
+//  digitalWrite(11, HIGH);
+//  digitalWrite(2, HIGH);
+//  digitalWrite(3, HIGH);
+//  digitalWrite(4, HIGH);
+//  digitalWrite(5, HIGH);
+//  digitalWrite(6, HIGH);
+//  digitalWrite(7, HIGH);
+//  digitalWrite(8, HIGH);
+//  digitalWrite(9, HIGH);
+//  digitalWrite(10, HIGH);
+}
+
+void loop() {
+  RemoteXY_Handler();
+  
+  digitalWrite(PIN_PUSHSWITCH_1, (RemoteXY.pushSwitch_1==0)?LOW:HIGH);
+  digitalWrite(PIN_PUSHSWITCH_2, (RemoteXY.pushSwitch_2==0)?LOW:HIGH);
+  digitalWrite(PIN_PUSHSWITCH_3, (RemoteXY.pushSwitch_3==0)?LOW:HIGH);
+  digitalWrite(PIN_PUSHSWITCH_4, (RemoteXY.pushSwitch_4==0)?LOW:HIGH);
+  digitalWrite(PIN_PUSHSWITCH_5, (RemoteXY.pushSwitch_5==0)?LOW:HIGH);
+  digitalWrite(PIN_PUSHSWITCH_6, (RemoteXY.pushSwitch_6==0)?LOW:HIGH);
+  digitalWrite(PIN_PUSHSWITCH_7, (RemoteXY.pushSwitch_7==0)?LOW:HIGH);
+  digitalWrite(PIN_PUSHSWITCH_8, (RemoteXY.pushSwitch_8==0)?LOW:HIGH);
+  digitalWrite(PIN_PUSHSWITCH_9, (RemoteXY.pushSwitch_9==0)?LOW:HIGH);
+  digitalWrite(PIN_PUSHSWITCH_10, (RemoteXY.pushSwitch_10==0)?LOW:HIGH);
+}
