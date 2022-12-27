@@ -1,0 +1,277 @@
+Sw Sw1 = new Sw(50, 30, 70, 100, 1);
+Sw Sw2 = new Sw(250, 30, 70, 100, 1);
+Sw Sw3 = new Sw(50, 230, 70, 100, 1);
+Sw Sw4 = new Sw(250, 230, 70, 100, 1);
+Sw Sw5 = new Sw(50, 430, 70, 100, 1);
+Sw Sw6 = new Sw(250, 430, 70, 100, 1);
+Sw Sw7 = new Sw(50, 630, 70, 100, 1);
+Sw Sw8 = new Sw(250, 630, 70, 100, 1);
+Sw Sw9 = new Sw(50, 830, 70, 100, 1);
+Sw Sw10 = new Sw(250, 830, 70, 100, 1);
+
+
+
+import processing.serial.*;
+Serial myPort; // Create object from Serial class
+int stat;
+void setup()
+{
+  size(370, 970);
+  Sw1.display(Sw1.st);
+  Sw2.display(Sw2.st);
+  Sw3.display(Sw3.st);
+  Sw4.display(Sw4.st);
+  Sw5.display(Sw5.st);
+  Sw6.display(Sw6.st);
+  Sw7.display(Sw7.st);
+  Sw8.display(Sw8.st);
+  Sw9.display(Sw9.st);
+  Sw10.display(Sw10.st);
+  frameRate(10);
+  printArray(Serial.list());  
+  myPort = new Serial(this, Serial.list()[2], 9600);
+}
+
+
+
+void draw()
+{
+  textSize(24);
+  fill(0);
+  text("CW1", 60, 170);
+  text("CCW1", 260, 170);
+  text("CW2", 60, 370);
+  text("CCW2", 260, 370);
+  text("CW3", 60, 570);
+  text("CCW3", 260, 570);
+  text("CW4", 60, 770);
+  text("CCW4", 260, 770);
+  text("CW5", 60, 970);
+  text("CCW5", 260, 970);
+}
+
+
+
+void mousePressed()
+{
+  if (Sw1.areachk() == 1)
+  if (Sw1.st == 0)
+  {
+    Sw1.st = 1;
+    myPort.write('A');
+  }
+  else
+  {
+    Sw1.st = 0;
+    myPort.write('B');
+  };
+  
+  if (Sw2.areachk() == 1)
+  if (Sw2.st == 0)
+  {
+    Sw2.st = 1;
+    myPort.write('C');
+  }
+  else
+  {
+    Sw2.st = 0;
+    myPort.write('D');
+  };
+  
+  if (Sw3.areachk() == 1)
+  if (Sw3.st == 0)
+  {
+    Sw3.st = 1;
+    myPort.write('E');
+  }
+  else
+  {
+    Sw3.st = 0;
+    myPort.write('F');
+  };
+  
+  if (Sw4.areachk() == 1)
+  if (Sw4.st == 0)
+  {
+    Sw4.st = 1;
+    myPort.write('G');
+  }
+  else
+  {
+    Sw4.st = 0;
+    myPort.write('H');
+  };
+  
+  if (Sw5.areachk() == 1)
+  if (Sw5.st == 0)
+  {
+    Sw5.st = 1;
+    myPort.write('I');
+  }
+  else
+  {
+    Sw5.st = 0;
+    myPort.write('J');
+  };
+  
+  if (Sw6.areachk() == 1)
+  if (Sw6.st == 0)
+  {
+    Sw6.st = 1;
+    myPort.write('K');
+  }
+  else
+  {
+    Sw6.st = 0;
+    myPort.write('L');
+  };
+  
+  if (Sw7.areachk() == 1)
+  if (Sw7.st == 0)
+  {
+    Sw7.st = 1;
+    myPort.write('M');
+  }
+  else
+  {
+    Sw7.st = 0;
+    myPort.write('N');
+  };
+  
+  if (Sw8.areachk() == 1)
+  if (Sw8.st == 0)
+  {
+    Sw8.st = 1;
+    myPort.write('O');
+  }
+  else
+  {
+    Sw8.st = 0;
+    myPort.write('P');
+  };
+  
+  if (Sw9.areachk() == 1)
+  if (Sw9.st == 0)
+  {
+    Sw9.st = 1;
+    myPort.write('Q');
+  }
+  else
+  {
+    Sw9.st = 0;
+    myPort.write('R');
+  };
+  
+  if (Sw10.areachk() == 1)
+  if (Sw10.st == 0)
+  {
+    Sw10.st = 1;
+    myPort.write('S');
+  }
+  else
+  {
+    Sw10.st = 0;
+    myPort.write('T');
+  };
+  
+  Sw1.display(Sw1.st);
+  Sw2.display(Sw2.st);
+  Sw3.display(Sw3.st);
+  Sw4.display(Sw4.st);
+  Sw5.display(Sw5.st);
+  Sw6.display(Sw6.st);
+  Sw7.display(Sw7.st);
+  Sw8.display(Sw8.st);
+  Sw9.display(Sw9.st);
+  Sw10.display(Sw10.st);
+}
+
+
+
+class Sw
+{
+  int x, y, w, h, st;
+  Sw (int xpos, int ypos, int wsw, int hsw, int sta)
+  {
+    x = xpos;
+    y = ypos;
+    w = wsw;
+    h = hsw;
+    st = sta;
+  }
+  
+  void display(int stat)
+  {
+    noFill();
+    strokeWeight(2);
+    int col_top;
+    int col_right;
+    int col_bottom;
+    int col_left;
+    int col_intop;
+    int col_inmidup;
+    int col_inmidlo;
+    int col_inbo;
+    col_top = 230;
+    col_right = 100;
+    col_bottom = 80;
+    col_left = 190;
+    if(stat == 0)
+    {
+      col_intop = 200;
+      col_inmidup = 100;
+      col_inmidlo = 170;
+      col_inbo = 160;
+    }
+    else
+    {
+      col_intop = 160;
+      col_inmidup = 170;
+      col_inmidlo = 200;
+      col_inbo = 100;
+    }
+    stroke(0, 0, 200); // center
+    fill(col_top);
+    rect(x,y,w,h);
+    noStroke();  
+    fill(col_top);
+    quad(x-10, y-10, x+w+10, y-10, x+w, y, x, y); // top
+    fill(col_right);
+    quad(x+w, y, x+w+10, y-10, x+w+10, y+h+10, x+w, y+h); // right
+    fill(col_bottom);
+
+
+
+   quad(x+w, y+h, x+w+10, y+h+10, x-10, y+h+10, x, y+h); // bottom
+    fill(col_left);
+    quad(x-10, y-10, x, y, x, y+w, x-10, y+h+10); // left
+
+
+
+   fill(col_intop);
+    rect(x+10,y+10,w-20,15);
+    fill(col_inmidup);
+    rect(x+10,y+25,w-20,(h-20)/2);
+    fill(col_inmidlo);
+    rect(x+10,(y+h/2),w-20,(h-20)/2);
+    fill(col_inbo);
+    rect(x+10,y+h-25,w-20,15);
+    stroke(0);
+    ellipse((x+(w/2)),y+15 +(h/4),15,15);
+    line(x+(w/2),y+(h/2)+10,x+(w/2),y+h -30);
+    line(x+w-10,y+10,x+w-10,y+h-10);
+    line(x+10,y+h-10,x+w-10,y+h-10);
+  }
+  
+  int areachk()
+  {
+    if(mouseX > x+10 && mouseX < x+w-10 && mouseY > y+10 && mouseY < y+h-10)
+    {
+      return 1;
+    }
+    else
+    {
+      return 0;
+    }
+  }
+}
